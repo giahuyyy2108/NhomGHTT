@@ -7,11 +7,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<body>
 <label for="">tên đăng nhập</label>
 <input type="text" name="" id="txtUserName" />
 <label for="">mật khẩu</label>
 <input type="password" name="" id="txtpassword" />
-<button class="btnlogin">đăng nhập</button>
+<button class="btnlogin" onclick="auth()">đăng nhập</button>
+
+
+<script>
+
+function auth() {
+    var user = document.getElementById("txtUserName").value;
+    var password = document.getElementById("txtpassword").value;
+
+    if (user === "admin" && password === "admin") {
+        window.location.replace("./upload.html");
+        console.log("admin")
+        // alert("You Are a ADMIN");
+
+    } else {
+        alert("Sai thông tin đăng nhập!");
+        return;
+    }
+
+}
+</script>
 </body>
 
 </html>
