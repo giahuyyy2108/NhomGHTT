@@ -1,12 +1,205 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <div id="demo">null</div>
+        <div id="tempValue"></div>
+        <input type="button" onclick="getCookies();" value="get cookies" />
+        <input type="button" onclick="setCookies();" value="set cookies" />
+        <input type="button" onclick="DeleteCookies();" value="Delete cookies"
+            />
+    </body>
+    <script>
+        class Student{
+            mark;
+            constructor(firstName, lastName){
+                this.firstName = firstName;
+                this.lastName = lastName;
+            }
+            get fullName(){
+                return this.firstName + " " + this.lastName;
+            }
+            passObject(para){
+                if(this.mark >5){
+                    return "st " + para + " qua môn";
+                }
+                return "st " + para + "  học lại";
+            }
+
+        }
+        function tonghaiso(a, b){
+            return a+b;
+        }
+    </script>
+    <script>
+        var str = "hello world";
+        var demo = document.getElementById("demo");
+        demo.innerHTML = str;
+  
+        var a = 3;
+        var b = 4;
+        demo.innerHTML = (a+b);
+
+        var arr = new Array();
+        arr.push("item 1");
+        arr.push("item 2");
+        arr.push("item 3");
+
+        console.log(arr);
+
+        var person1 = {"firstName": "Nguyễn", "lastName": "A"};
+        var person2 = {"firstName": "Nguyễn", "lastName": "B"};
+        var person3 = {firstName: "Nguyễn", lastName: "A"};
+        var arrPerson = new Array();
+        arrPerson.push(person1);
+        arrPerson.push(person2);
+        arrPerson.push(person3);
+        //console.log(arrPerson);
+        for(var i = 0; i< arrPerson.length;i++){
+            console.log(arrPerson[i].firstName + " " + arrPerson[i].lastName);
+        }
+       
+        var st1 = new Student("st ", "1");
+        st1.mark = 6;
+        var result = st1.passObject(1);
+        console.log(result);
+
+        var st2 = new Student("st ", "2");
+       
+        console.log(st1.fullName);
+
+        demo.innerHTML = "đâu biết lần đi một lỡ làng, dưới trời đau khổ chết yêu đương";
+
+    </script>
+    <script>
+    //getProduct();
+    //getProductv1();
+    /*getProductv3("function 3");
+    getProductv3("function 4");
+    getProductv3("function 5");
+
+
+    getProductv4("function 6");
+    getProductv4("function 7");
+    getProductv4("function 8");
+    */
+    async function getProduct() {
+        console.log('start call api');
+        const response = await fetch('https://dummyjson.com/products', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        });
+        console.log(response);
+        console.log('end call api');
+        console.log('start parse json');
+        var data = await response.json();
+        console.log('end parse json');
+        var demo = document.getElementById("demo");
+        //demo.innerHTML = '';
+        var strHtml = '';
+        for(var i = 0; i< data.products.length;i++){
+            strHtml += `<div onclick="clickProductItem(${data.products[i].id})">    ${data.products[i].id}    -------------      ${data.products[i].title}   </div>`;
+        }
+        demo.innerHTML = strHtml;
+    }
+    function clickProductItem(id){
+        alert("your select id is" + id);
+    }
     
-</body>
+    var dataApi;
+    var tempValue = document.getElementById("tempValue");
+    function getProductv1() {
+        console.log("Start call api");
+        
+        fetch("https://dummyjson.com/products")
+            .then(response => response.json())
+            .then(data => {
+                 console.log("old", data);
+                 tempValue.innerHTML = "true";
+                 dataApi = data;
+                return data;
+            });
+            
+            while(tempValue == ""){
+                const waitMilliseconds = 1000;
+                // Simulate an asynchronous task with setTimeout()
+                setTimeout(() => {
+                    console.log(`Resolved after ${waitMilliseconds}`);
+                    // Return the number of seconds waited
+                    resolve(waitMilliseconds);
+                }, waitMilliseconds);
+            }
+            
+            console.log(dataApi);
+
+            console.log("end call api");
+    }
+
+    function getProductv3(message) {
+        console.log("start:" + message );
+        fetch("https://dummyjson.com/products")
+            .then(response => response.json())
+            .then(data => {
+                console.log(message, data);
+                
+                return data;
+        });
+        console.log("end:" + message );
+    }
+    
+    async function getProductv4(message) {
+        console.log(message + 'start call api');
+        const response = await fetch('https://dummyjson.com/products', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        });
+        console.log(response);
+        console.log(message + 'end call api');
+    }
+    function randomWaitPromise(message) {
+        console.log("start:" + message);
+        return new Promise((resolve, reject) => {
+            // Decide how long to wait
+            const waitMilliseconds = Math.round(Math.random() * 10000);
+            // Simulate an asynchronous task with setTimeout()
+            setTimeout(() => {
+            console.log(`Resolved after ${waitMilliseconds}`);
+            // Return the number of seconds waited
+            resolve(waitMilliseconds);
+            }, waitMilliseconds);
+        });
+    }
+    const promise1 = randomWaitPromise("promise 1");
+    const promise2 = randomWaitPromise("promise 2");
+    const promise3 = randomWaitPromise("promise 3");
+    const promises = [promise1, promise2, promise3];
+    // Wait for all of them, then log the result
+    Promise.all(promises).then(values => {
+        console.log(`All done with: ${values}`);
+    });
+
+    
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) 
+            return parts.pop().split(';').shift();
+    }
+    function getCookies(){
+        alert(getCookie("username"));
+    }
+    function setCookies(){
+        document.cookie = "username=John Doe";
+    }
+    function DeleteCookies(){
+        document.cookie = "username=";
+    }
+    </script>
 </html>

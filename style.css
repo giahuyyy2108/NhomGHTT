@@ -1,0 +1,39 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.cha {
+    width: 100%;
+    padding-top: 100px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.con {
+    width: 100px;
+    height: 100px;
+    background: red;
+}
+
+@media (max-width: 1110px) {
+    .cha {
+        gap: 10px;
+    }
+    .con {
+        width: calc((100% / 4) - 10px);
+        background-color: green;
+    }
+}
+@media (max-width: 550px) {
+    .cha {
+        gap: 10px;
+    }
+    .con {
+        width: calc((100% / 1) - 10px);
+        background-color: green;
+    }
+}
